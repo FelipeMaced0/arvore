@@ -38,20 +38,13 @@ public class TreeAVL {
            y = x;
           
            if(z.key < x.key){
+               x.heightL += 1;
                x = x.left;
-               if(left==0){
-                    left = sinal;
-                    sinal = -sinal;
-               }
-               
+                
            }
            else if(this.toRight || z.key>x.key){
-               x = x.right;
-               if(right==0){
-                   right = sinal;
-                   sinal = -sinal;
-               }
-               
+                x.heightR += 1;
+                x = x.right;
            }
            else{
                x = null;
@@ -71,17 +64,26 @@ public class TreeAVL {
        }
        
        while(z!=null && (balance=balance(z))<=1){
+           if(z.key==z.father.right.key){
+               right =  sinal;
+               sinal = -sinal;
+           }
+           else{
+                left  =  sinal;
+                sinal = -sinal;
+           }
            z = z.father;
+           
        }
+      
        if(balance>1){
             if(left==1 && right==-1){
+                this.rotateRight(z.right);
                 this.rotateLeft(z);
-                this.rotateRight(z);
-                
             }
             else if(right==1 && left==-1){
+                this.rotateLeft(z.left);
                 this.rotateRight(z);
-                this.rotateLeft(z);
             }
             else if(left!=0){
                 this.rotateRight(z);
@@ -90,14 +92,12 @@ public class TreeAVL {
                 this.rotateLeft(z);
             }
        }
-        
     }
     
     public Node delete(Node z){
         Node y,x;
         
         if(this.search(root,z.key)!=null){
-
 
             if(z.right==null || z.left==null){
                 y = z;
@@ -113,7 +113,6 @@ public class TreeAVL {
             else{
                 x = y.right;
             }
-
 
             if(x!=null){
                 x.father = y.father;
@@ -140,7 +139,7 @@ public class TreeAVL {
     
     
     public int balance(Node x){
-        return Math.abs(treeHeight(x.right)-treeHeight(x.left));
+        return Math.abs(x.heightR-x.heightL);
     }
     
     //rotate a node to right
@@ -342,7 +341,7 @@ public class TreeAVL {
         t.insert(b);
         t.insert(c);
         
-        System.out.println(t.balance(c));
+        System.out.println(t.balance(a));
         
     }
 }

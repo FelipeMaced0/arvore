@@ -8,6 +8,8 @@
 public class Node  {
     
     int key;
+    int heightR;
+    int heightL;
     Node right;
     Node left;
     Node father;
