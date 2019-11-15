@@ -26,27 +26,35 @@ public class TreeAVL {
     
     public void rotations(Node x){
         //X está a direita de seu pai
+        
         if(x.father.right != null && x.key == x.father.right.key){
+            
             //O pai de x está a direita de seu pai. Possibilidade direita direita
             if(x.father.father.right!= null && x.father.key == x.father.father.right.key){
+                
                 this.rotateLeft(x.father.father);
+                
             }
             //O pai de x está a esquerda de seu pai. Possibilidade esquerda direita
             else{
+                
                 this.rotateLeft(x.father);
-                this.rotateRight(x.father);
+                this.rotateRight(x.father);//pai de x mudou 
             }
         }
         //X está a esquerda de seu pai
         else{
+            
             //O pai de x está a esquerda de seu pai. Possibilidade esquerda esquerda
             if(x.father.father.left != null && x.father.key == x.father.father.left.key){
+                
                 this.rotateRight(x.father.father);
             }
             //O pai de x está a direita de seu pai. Possibilidade direita esquerda
             else{
+                
                 this.rotateRight(x.father);
-                this.rotateLeft(x.father);
+                this.rotateLeft(x.father);//pai de x mudou
             }
         }
     }
