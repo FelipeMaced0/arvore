@@ -26,33 +26,33 @@ public class TreeAVL {
     
     public void rotations(Node x){
         //X está a direita de seu pai
-        if(x.key == x.father.right.key){
+        if(x.father.right != null && x.key == x.father.right.key){
             //O pai de x está a direita de seu pai. Possibilidade direita direita
-            if(x.father.key == x.father.father.key){
+            if(x.father.father.right!= null && x.father.key == x.father.father.right.key){
                 this.rotateLeft(x.father.father);
             }
             //O pai de x está a esquerda de seu pai. Possibilidade esquerda direita
             else{
                 this.rotateLeft(x.father);
-                this.rotateRight(x.father.father);
+                this.rotateRight(x.father);
             }
         }
         //X está a esquerda de seu pai
         else{
             //O pai de x está a esquerda de seu pai. Possibilidade esquerda esquerda
-            if(x.father.key == x.father.father.left.key){
+            if(x.father.father.left != null && x.father.key == x.father.father.left.key){
                 this.rotateRight(x.father.father);
             }
             //O pai de x está a direita de seu pai. Possibilidade direita esquerda
             else{
                 this.rotateRight(x.father);
-                this.rotateLeft(x.father.father);
+                this.rotateLeft(x.father);
             }
         }
     }
     
     public void insert(Node z){
-        
+       int b;
        Node x = root;
        Node y = null;
        
@@ -82,8 +82,9 @@ public class TreeAVL {
            y.right = z;
        }
        
-       if(z.father.father!=null){
-            if(this.balance(z.father.father)>1){
+       if(z.father!= null && z.father.father!=null){
+            b = this.balance(z.father.father);
+            if(b>1){
                 this.rotations(z);
             }
        }
@@ -134,7 +135,11 @@ public class TreeAVL {
     
     
     public int balance(Node x){
-        return Math.abs(this.nodeHeight(x.right)-this.nodeHeight(x.left));
+        int out = 0;
+        if(x!=null){
+            return Math.abs(this.treeHeight(x.right)-this.treeHeight(x.left));
+        }
+        return out;
     }
     
     //rotate a node to right
@@ -195,8 +200,9 @@ public class TreeAVL {
     public int nodeHeight(Node x){
         int c = 0;
         //foi comprar cigarro
-        if(x.father!=null){
-            c += nodeHeight(x.father)+1;
+        while(x!=null && x.father!=null){
+            x = x.father;
+            c = c+1;
         }
         return c; 
     }
@@ -331,15 +337,15 @@ public class TreeAVL {
     
     public static void main(String args[]){
         TreeAVL t = new TreeAVL();
-        Node a = new Node(0);
-        Node b = new Node(1);
-        Node c = new Node(2);
+        Node a = new Node(3);
+        Node b = new Node(2);
+        Node c = new Node(1);
         
         t.insert(a);
         t.insert(b);
         t.insert(c);
         
-        System.out.println(t.balance(a));
+        System.out.println(t.treeHeight(b));
         
     }
 }

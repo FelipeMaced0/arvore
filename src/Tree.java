@@ -150,7 +150,7 @@ public class Tree {
     public int nodeHeight(Node x){
         int c = 0;
         //foi comprar cigarro
-        while(x.father!=null){
+        while(x!=null){
             x = x.father;
             c+=1;
         }
