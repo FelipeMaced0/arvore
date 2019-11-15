@@ -289,7 +289,7 @@ public class Tree {
     public static void main(String args[]){
         Tree t = new Tree();
         Node a = new Node(0);
-        Node b = new Node(0);
+        Node b = new Node(-1);
         Node c = new Node(-2);
         
         

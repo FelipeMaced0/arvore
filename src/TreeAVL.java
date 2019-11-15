@@ -24,13 +24,36 @@ public class TreeAVL {
         return toRight;
     }
     
+    public void rotations(Node x){
+        // x está a direita de seu pai
+        if(x.key == x.father.right.key){
+            //o pai de x está a direita de seu pai. dir dir
+            if(x.father.key == x.father.father.key){
+                this.rotateLeft(x.father.father);
+            }
+            //O pai de x está a esquerda de seu pai. esq dir
+            else{
+                this.rotateLeft(x.father);
+                this.rotateRight(x.father.father);
+            }
+        }
+        //x está a esquerda de seu pai
+        else{
+            //O pai de x está a esquerda de seu pai. esq esq
+            if(x.father.key == x.father.father.left.key){
+                this.rotateRight(x.father.father);
+            }
+            //O pai de x está a direita de seu pai. dir esq
+            else{
+                this.rotateRight(x.father);
+                this.rotateLeft(x.father.father);
+            }
+        }
+    }
+    
     public void insert(Node z){
+        
        int balance=0;
-       int sinal=1;
-       int right=0;
-       int left=0;
-       
-       
        Node x = root;
        Node y = null;
        
@@ -38,12 +61,9 @@ public class TreeAVL {
            y = x;
           
            if(z.key < x.key){
-               x.heightL += 1;
                x = x.left;
-                
            }
            else if(this.toRight || z.key>x.key){
-                x.heightR += 1;
                 x = x.right;
            }
            else{
@@ -62,35 +82,15 @@ public class TreeAVL {
        else if(this.toRight || z.key>y.key){
            y.right = z;
        }
-       
-       while(z!=null && (balance=balance(z))<=1){
-           if(z.key==z.father.right.key){
-               right =  sinal;
-               sinal = -sinal;
-           }
-           else{
-                left  =  sinal;
-                sinal = -sinal;
-           }
-           z = z.father;
-           
+       //repetir apenas por 3 vezes e parar z, z.father e z.father.father
+       //Verificar o balance do z.father.father
+       if(z.father.father!=null){
+           balance = this.balance(z.father.father);
        }
       
+       
        if(balance>1){
-            if(left==1 && right==-1){
-                this.rotateRight(z.right);
-                this.rotateLeft(z);
-            }
-            else if(right==1 && left==-1){
-                this.rotateLeft(z.left);
-                this.rotateRight(z);
-            }
-            else if(left!=0){
-                this.rotateRight(z);
-            }
-            else if(right!=0){
-                this.rotateLeft(z);
-            }
+            this.rotations(z);
        }
     }
     
@@ -139,7 +139,7 @@ public class TreeAVL {
     
     
     public int balance(Node x){
-        return Math.abs(x.heightR-x.heightL);
+        return Math.abs(this.nodeHeight(x.right)-this.nodeHeight(x.left));
     }
     
     //rotate a node to right
@@ -321,12 +321,15 @@ public class TreeAVL {
         return out.trim();
     }
     
-    public String heightInOrderTreeWalk(Node x){
+    public String heightInOrderTreeWalk(){
+        return heightInOrderTreeWalk(this.root, 0);
+    }
+    
+    public String heightInOrderTreeWalk(Node x , int height){
         String out="";
-        int height;
         if(x!=null){
             height = nodeHeight(x); 
-            out += heightInOrderTreeWalk(x.left)+" "+x.key+" ("+height+") "+heightInOrderTreeWalk(x.right);
+            out += heightInOrderTreeWalk(x.left, height+1)+" "+x.key+" ("+height+") "+heightInOrderTreeWalk(x.right,height+1);
         }
         return out.trim();
     }
