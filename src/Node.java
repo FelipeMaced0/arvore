@@ -14,6 +14,7 @@ public class Node  {
     Node left;
     Node father;
     
+    
     public Node(int key){
         this.key = key;
     }

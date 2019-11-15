@@ -262,6 +262,7 @@ public class Tree {
         return y;
     }
     
+
     public String subInOrderTreeWalk(Node x){
         String out="";
         int sum;
@@ -272,12 +273,15 @@ public class Tree {
         return out.trim();
     }
     
-    public String heightInOrderTreeWalk(Node x){
+    public String heightInOrderTreeWalk(){
+        return heightInOrderTreeWalk(this.root, 0);
+    }
+    
+    public String heightInOrderTreeWalk(Node x , int height){
         String out="";
-        int height;
         if(x!=null){
             height = nodeHeight(x); 
-            out += heightInOrderTreeWalk(x.left)+" "+x.key+" ("+height+") "+heightInOrderTreeWalk(x.right);
+            out += heightInOrderTreeWalk(x.left, height+1)+" "+x.key+" ("+height+") "+heightInOrderTreeWalk(x.right,height+1);
         }
         return out.trim();
     }
@@ -285,14 +289,10 @@ public class Tree {
     public static void main(String args[]){
         Tree t = new Tree();
         Node a = new Node(0);
-        Node b = new Node(-1);
+        Node b = new Node(0);
         Node c = new Node(-2);
         
-        t.insert(a);
-        t.insert(b);
-        t.insert(c);
         
-        System.out.println(t.sucessor(b));
         
     }
 }

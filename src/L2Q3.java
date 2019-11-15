@@ -32,7 +32,7 @@ public class L2Q3 {
                     }
                 }
             } 
-            out = out + t.heightInOrderTreeWalk(t.root) + "\n";
+            out = out + t.heightInOrderTreeWalk() + "\n";
         }
         
         out = out.trim();
