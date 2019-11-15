@@ -25,25 +25,25 @@ public class TreeAVL {
     }
     
     public void rotations(Node x){
-        // x está a direita de seu pai
+        //X está a direita de seu pai
         if(x.key == x.father.right.key){
-            //o pai de x está a direita de seu pai. dir dir
+            //O pai de x está a direita de seu pai. Possibilidade direita direita
             if(x.father.key == x.father.father.key){
                 this.rotateLeft(x.father.father);
             }
-            //O pai de x está a esquerda de seu pai. esq dir
+            //O pai de x está a esquerda de seu pai. Possibilidade esquerda direita
             else{
                 this.rotateLeft(x.father);
                 this.rotateRight(x.father.father);
             }
         }
-        //x está a esquerda de seu pai
+        //X está a esquerda de seu pai
         else{
-            //O pai de x está a esquerda de seu pai. esq esq
+            //O pai de x está a esquerda de seu pai. Possibilidade esquerda esquerda
             if(x.father.key == x.father.father.left.key){
                 this.rotateRight(x.father.father);
             }
-            //O pai de x está a direita de seu pai. dir esq
+            //O pai de x está a direita de seu pai. Possibilidade direita esquerda
             else{
                 this.rotateRight(x.father);
                 this.rotateLeft(x.father.father);
@@ -53,7 +53,6 @@ public class TreeAVL {
     
     public void insert(Node z){
         
-       int balance=0;
        Node x = root;
        Node y = null;
        
@@ -82,15 +81,11 @@ public class TreeAVL {
        else if(this.toRight || z.key>y.key){
            y.right = z;
        }
-       //repetir apenas por 3 vezes e parar z, z.father e z.father.father
-       //Verificar o balance do z.father.father
-       if(z.father.father!=null){
-           balance = this.balance(z.father.father);
-       }
-      
        
-       if(balance>1){
-            this.rotations(z);
+       if(z.father.father!=null){
+            if(this.balance(z.father.father)>1){
+                this.rotations(z);
+            }
        }
     }
     
