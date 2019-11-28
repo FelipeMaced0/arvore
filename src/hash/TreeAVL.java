@@ -329,7 +329,7 @@ public class TreeAVL {
     public String inOrderTreeWalk(Node x){
         String out="";
         if(x!=null){
-            out += inOrderTreeWalk(x.left)+x.key+inOrderTreeWalk(x.right);
+            out += inOrderTreeWalk(x.left)+" "+x.key+" "+inOrderTreeWalk(x.right);
         }
         return out;
     }
