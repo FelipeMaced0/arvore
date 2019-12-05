@@ -237,7 +237,9 @@ public class Tree {
         if(x.right!=null){
             return this.min(x.right);
         }
+        
         y = x.father;
+        
         while(y!=null && y.right!=null && x.key == y.right.key){
             x = y;
             y = y.father;
@@ -271,16 +273,16 @@ public class Tree {
         while(x!=null){
             if(x.father != null){
                 if(x.key == x.father.left.key){
-                    pred += sum(x.father.right)+x.father.key;
+                    suce += sum(x.father.right)+x.father.key;
                 }
                 else{
-                    suce += sum(x.father.left)+x.father.key;
+                    pred += sum(x.father.left)+x.father.key;
                 }
             }
             x = x.father;
             
         }
-        return pred-suce;
+        return suce-pred;
     }
     
     public String subInOrderTreeWalk(Node x){
