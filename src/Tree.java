@@ -262,7 +262,27 @@ public class Tree {
         return y;
     }
     
-
+    public int pred_suce(Node x){
+        int pred=0,suce=0;
+        
+        pred += sum(x.right);
+        suce += sum(x.left);
+        
+        while(x!=null){
+            if(x.father != null){
+                if(x.key == x.father.left.key){
+                    pred += sum(x.father.right)+x.father.key;
+                }
+                else{
+                    suce += sum(x.father.left)+x.father.key;
+                }
+            }
+            x = x.father;
+            
+        }
+        return pred-suce;
+    }
+    
     public String subInOrderTreeWalk(Node x){
         String out="";
         int sum;
@@ -292,7 +312,11 @@ public class Tree {
         Node b = new Node(-1);
         Node c = new Node(-2);
         
+        t.insert(a);
+        t.insert(b);
+        t.insert(c);
         
+        System.out.println(t.pred_suce(c));
         
     }
 }
