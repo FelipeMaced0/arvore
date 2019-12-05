@@ -95,6 +95,12 @@ public class TreeAVL {
             if(b>1){
                 this.rotations(z);
             }
+            else{
+                b = this.balance(z.father.father.father);
+                if(b>1){
+                    this.rotations(z);
+                }
+            }
        }
     }
     
