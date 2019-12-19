@@ -272,7 +272,7 @@ public class Tree {
         
         while(x!=null){
             if(x.father != null){
-                if(x.key == x.father.left.key){
+                if(x.father.left != null && x.key == x.father.left.key){
                     suce += sum(x.father.right)+x.father.key;
                 }
                 else{
@@ -280,9 +280,8 @@ public class Tree {
                 }
             }
             x = x.father;
-            
         }
-        return suce-pred;
+        return pred-suce;
     }
     
     public String subInOrderTreeWalk(Node x){
@@ -311,8 +310,8 @@ public class Tree {
     public static void main(String args[]){
         Tree t = new Tree();
         Node a = new Node(0);
-        Node b = new Node(-1);
-        Node c = new Node(-2);
+        Node b = new Node(1);
+        Node c = new Node(2);
         
         t.insert(a);
         t.insert(b);
