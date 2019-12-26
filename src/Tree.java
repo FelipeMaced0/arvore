@@ -1,3 +1,5 @@
+
+
 /**
  *
  * @author Felipe Macedo
@@ -309,6 +311,7 @@ public class Tree {
     }
     
     public static void main(String args[]){
+        
         Tree t = new Tree();
         Node a = new Node(0);
         Node b = new Node(-1);
@@ -319,6 +322,5 @@ public class Tree {
         t.insert(c);
         
         System.out.println(t.pred_suce(c));
-        
     }
 }

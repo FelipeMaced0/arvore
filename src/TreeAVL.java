@@ -39,7 +39,7 @@ public class TreeAVL {
             else{
                 
                 this.rotateLeft(x.father);
-                this.rotateRight(x.father);//pai de x mudou 
+                this.rotateRight(x.father);//o pai de x mudou 
             }
         }
         //X está a esquerda de seu pai
